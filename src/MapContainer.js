@@ -18,7 +18,9 @@ export default class MapContainer extends Component {
     query: '',
     markers: [],
     infowindow: new this.props.google.maps.InfoWindow(),
-    highlightedIcon: null
+    highlightedIcon: null,
+    error: null,
+    mapError: null
   }
 
   componentDidMount() {
@@ -40,7 +42,7 @@ export default class MapContainer extends Component {
       const mapConfig = Object.assign({}, {
         center: {lat: 45.188529, lng: 5.724523999999974},
         zoom: 12,
-        mapTypeId: 'roadmap'
+        mapTypeId: 'terrain'
       })
 
       this.map = new maps.Map(node, mapConfig)
@@ -95,8 +97,14 @@ export default class MapContainer extends Component {
 
   populateInfoWindow = (marker, infowindow) => {
     const defaultIcon = marker.getIcon()
-    const {highlightedIcon, markers} = this.state
+    const {markers,highlightedIcon} = this.state
     // Check to make sure the infowindow is not already opened on this marker.
+        const {google} = this.props
+
+    const service = new google.maps.places.PlacesService(this.map)
+    const geocoder = new google.maps.Geocoder()
+    
+    
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
       if (infowindow.marker) {
@@ -105,16 +113,58 @@ export default class MapContainer extends Component {
       }
       // change marker icon color of clicked marker
       marker.setIcon(highlightedIcon)
-      infowindow.marker = marker
-      infowindow.setContent(`<h3>${marker.title}</h3><h4></h4>`)
-      infowindow.open(this.map, marker)
-      // Make sure the marker property is cleared if the infowindow is closed.
-      infowindow.addListener('closeclick', function () {
+      infowindow.marker = marker;
+
+      geocoder.geocode({'location': marker.position}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            service.getDetails({
+              placeId: results[1].place_id
+            }, (place, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+      infowindow.setContent(`<h3>Location:${marker.title}</h3>)
+        <div>Latitude: ${marker.getPosition().lat()}</div>
+        <div>Longitude: ${marker.getPosition().lng()}</div>
+        <div>${place.name}, ${place.formatted_address}</div>`);
+        infowindow.open(this.map, marker);
+        }
+      });
+           } else {
+             window.alert('No results found');
+           }
+           } else {
+             window.alert('Geocoder failed due to: ' + status);
+           }
+           });
+
+           // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', () => {
         infowindow.marker = null
-      })
+        marker.setIcon(defaultIcon)
+      });
     }
   }
 
+  onclickLocation = () => {
+    const {markers} = this.state
+    const that = this
+    const {infowindow} = this.state
+
+    const displayInfowindow = (e) => {
+      const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
+      that.populateInfoWindow(markers[markerInd], infowindow, that.state.users[markerInd])
+    }
+    document.querySelector('.locations-list').addEventListener('click', function (e) {
+      if(e.target && e.target.nodeName === "LI") {
+        displayInfowindow(e)
+      }
+    })
+    document.querySelector('.locations-list').addEventListener('keydown', function (e) {
+      if(e.keyCode === 13 ){
+        displayInfowindow(e)
+      }
+    })
+  }
   makeMarkerIcon = (markerColor) => {
     const {google} = this.props
     let markerImage = new google.maps.MarkerImage(
@@ -150,21 +200,29 @@ export default class MapContainer extends Component {
     }
     return (
       <div>
-        <div className="container">
-          <div className="text-input">
+        {this.state.error ? (
+          <div className="error">
+            An error has occurred; please try later
+            <div className="error-description">{this.state.error}</div>
+          </div>):
+        (<div className="container">
+          <div className = "sidebar text-input text-input-hidden" >
             <input role="search" type='text'
                    value={this.state.value}
                    onChange={this.handleValueChange}/>
+          <div>
             <ul className="locations-list">{
               markers.filter(m => m.getVisible()).map((m, i) =>
-                (<li key={i}>{m.title}</li>))
+                (<li role="link" key={i} tabIndex="0">{m.title}</li>))
             }</ul>
           </div>
+        </div>
           <div role="application" className="map" ref="map">
             loading map...
-          </div>
+            {this.state.mapError && <div className="error">{this.state.mapError}</div>}
+            </div>
+          </div>)}
         </div>
-      </div>
-    )
+    ) 
   }
 }
