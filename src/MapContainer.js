@@ -16,7 +16,7 @@ export default class MapContainer extends Component {
       {name: "Big River Beach", location: {lat: 39.302637, lng: -123.791042}}
     ],
     query: '',
-    markers: [],
+    markers:[],
     infowindow: new this.props.google.maps.InfoWindow(),
     highlightedIcon: null,
     error: null,
@@ -152,7 +152,7 @@ export default class MapContainer extends Component {
 
     const displayInfowindow = (e) => {
       const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-      that.populateInfoWindow(markers[markerInd], infowindow, that.state.users[markerInd])
+      that.populateInfoWindow(markers[markerInd], infowindow, that.state[markerInd])
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if(e.target && e.target.nodeName === "LI") {
