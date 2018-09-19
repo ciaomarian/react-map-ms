@@ -122,7 +122,7 @@ export default class MapContainer extends Component {
               placeId: results[1].place_id
             }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
-      infowindow.setContent(`<h3>Location:${marker.title}</h3>)
+      infowindow.setContent(`<h3>${marker.title}</h3>
         <div>Latitude: ${marker.getPosition().lat()}</div>
         <div>Longitude: ${marker.getPosition().lng()}</div>
         <div>${place.name}, ${place.formatted_address}</div>`);

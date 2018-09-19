@@ -12,8 +12,8 @@ class App extends Component {
             <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/>
           </svg>
         </a>
-        <h1 className="heading"> CA North Coast Nature Trails</h1>
-        <h2 className = "subheading">Mendocino to Ten Mile River</h2>
+        <h1 className="heading"> CA North Coast</h1>
+        <h2 className = "subheading">Nature Trails: Mendocino to Ten Mile River</h2>
         <MapContainer google={this.props.google} />
       </div>
     );
