@@ -85,7 +85,7 @@ export default class MapContainer extends Component {
       })
 
       marker.addListener('click', () => {
-        this.populateInfoWindow(marker, infowindow)
+        this.populateInfoWindow(marker, infowindow[ind])
       })
       this.setState((state) => ({
         markers: [...state.markers, marker]
@@ -96,7 +96,8 @@ export default class MapContainer extends Component {
   }
 
   populateInfoWindow = (marker, infowindow) => {
-    const defaultIcon = marker.getIcon()
+    console.log("Marker: ", marker);
+    //const defaultIcon = marker.getIcon()
     const {markers,highlightedIcon} = this.state
     // Check to make sure the infowindow is not already opened on this marker.
         const {google} = this.props
@@ -107,11 +108,15 @@ export default class MapContainer extends Component {
     
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
+      
+     // markers[ind].setIcon(defaultIcon)
       if (infowindow.marker) {
         const ind = markers.findIndex(m => m.title === infowindow.marker.title)
-        markers[ind].setIcon(defaultIcon)
+      //markers[ind].setIcon(defaultIcon)  
       }
       // change marker icon color of clicked marker
+
+     //markers[ind].setIcon(defaultIcon)
       marker.setIcon(highlightedIcon)
       infowindow.marker = marker;
 
@@ -140,7 +145,7 @@ export default class MapContainer extends Component {
            // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', () => {
         infowindow.marker = null
-        marker.setIcon(defaultIcon)
+        //marker.setIcon(defaultIcon)
       });
     }
   }
