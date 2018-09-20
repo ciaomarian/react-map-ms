@@ -59,7 +59,11 @@ export default class MapContainer extends Component {
       const {markers} = this.state
       const markerInd =
         markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-      that.populateInfoWindow(markers[markerInd], infowindow)
+        console.log(infowindow);
+        
+        // TO DO: fix onclick displaying info window
+        /// marker currently undefined cannot match marker index
+        //that.populateInfoWindow(markers[markerInd], infowindow)
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if (e.target && e.target.nodeName === "LI") {
@@ -85,7 +89,7 @@ export default class MapContainer extends Component {
       })
 
       marker.addListener('click', () => {
-        this.populateInfoWindow(marker, infowindow[ind])
+        this.populateInfoWindow(marker, infowindow)
       })
       this.setState((state) => ({
         markers: [...state.markers, marker]
@@ -96,7 +100,7 @@ export default class MapContainer extends Component {
   }
 
   populateInfoWindow = (marker, infowindow) => {
-    console.log("Marker: ", marker);
+    //console.log("Marker: ", marker);
     //const defaultIcon = marker.getIcon()
     const {markers,highlightedIcon} = this.state
     // Check to make sure the infowindow is not already opened on this marker.
@@ -109,7 +113,7 @@ export default class MapContainer extends Component {
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
       
-     // markers[ind].setIcon(defaultIcon)
+      //markers[ind].setIcon(defaultIcon)
       if (infowindow.marker) {
         const ind = markers.findIndex(m => m.title === infowindow.marker.title)
       //markers[ind].setIcon(defaultIcon)  
@@ -157,9 +161,11 @@ export default class MapContainer extends Component {
 
     const displayInfowindow = (e) => {
       const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-      that.populateInfoWindow(markers[markerInd], infowindow, that.state[markerInd])
+      //
+      //that.populateInfoWindow(markers[markerInd], infowindow)console.log(markerInd)
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
+      console.log(e)
       if(e.target && e.target.nodeName === "LI") {
         displayInfowindow(e)
       }
@@ -218,7 +224,7 @@ export default class MapContainer extends Component {
           <div>
             <ul className="locations-list">{
               markers.filter(m => m.getVisible()).map((m, i) =>
-                (<li role="link" key={i} tabIndex="0">{m.title}</li>))
+                (<li role="link" key={i} tabIndex={i}>{m.title}</li>))
             }</ul>
           </div>
         </div>
