@@ -5,7 +5,8 @@ export default class MapContainer extends Component {
 
   state = {
     locations: [
-      {name: "Laguna Point", location: {lat: 39.489646, lng: -123.804493}},
+      {name: "MacKerricher State Park", location: {lat: 39.488802, lng: -123.784986}},
+      {name: "Laguna Point", location: {lat: 39.489604, lng: -123.804493}},
       {name: "Ten Mile Estuary", location: {lat: 39.546877, lng: -123.757269}},
       {name: "Noyo Headlands State Park", location: {lat: 39.432217, lng: -123.812925}},
       {name: "Mendocino Coast Botanical Gardens", location: {lat: 39.409633, lng: -123.809829}},
