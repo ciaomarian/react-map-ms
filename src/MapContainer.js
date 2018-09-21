@@ -52,32 +52,8 @@ export default class MapContainer extends Component {
         mapError: "error while loading the app"})
     }
   }
-  handleValueChange = (e) => {
-    this.setState({
-      query: e.target.value
-    })
-  }
 
-  onclickLocation = () => {
-    const that = this
-    const {infowindow} = this.state
 
-    const displayInfowindow = (e) => {
-      const {markers} = this.state
-      const markerInd =
-        markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-        console.log(infowindow);
-        
-        // TO DO: fix onclick displaying info window
-        /// marker currently undefined cannot match marker index
-        that.populateInfoWindow(markers[markerInd], infowindow)
-    }
-    document.querySelector('.locations-list').addEventListener('click', function (e) {
-      if (e.target && e.target.nodeName === "LI") {
-        displayInfowindow(e)
-      }
-    })
-  }
 
   handleValueChange = (e) => {
     this.setState({query: e.target.value})
@@ -86,14 +62,15 @@ export default class MapContainer extends Component {
   addMarkers = () => {
     const {google} = this.props
     let {infowindow} = this.state
-    const bounds = new google.maps.LatLngBounds()
+    const bounds = new google.maps.LatLngBounds();
 
     this.state.locations.forEach((location, ind) => {
       const marker = new google.maps.Marker({
         position: {lat: location.location.lat, lng: location.location.lng},
         map: this.map,
         title: location.name
-      })
+      });
+
 
       marker.addListener('click', () => {
         this.populateInfoWindow(marker, infowindow)
@@ -168,6 +145,8 @@ export default class MapContainer extends Component {
     const displayInfowindow = (e) => {
       const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
       //that.populateInfoWindow(markers[markerInd], infowindow[markerInd])
+              // TO DO: fix onclick displaying info window
+              /// marker currently undefined cannot match marker index
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if(e.target && e.target.nodeName === "LI") {
@@ -197,6 +176,8 @@ export default class MapContainer extends Component {
   render() {
     const {locations, query, markers, infowindow} = this.state
     if (query) {
+    // get the index of elements that does not start with the query
+    // and use that index with markers array to setMap to null
       locations.forEach((l, i) => {
         if (l.name.toLowerCase().includes(query.toLowerCase())) {
           markers[i].setVisible(true)
