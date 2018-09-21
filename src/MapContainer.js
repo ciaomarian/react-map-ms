@@ -86,7 +86,7 @@ export default class MapContainer extends Component {
   populateInfoWindow = (marker, infowindow) => {
     //console.log("Marker: ", marker);
     //const defaultIcon = marker.getIcon()
-    const {markers,highlightedIcon} = this.state
+    const {highlightedIcon} = this.state
         const {google} = this.props
 
     const service = new google.maps.places.PlacesService(this.map)
@@ -97,7 +97,7 @@ export default class MapContainer extends Component {
       // reset the color of previous marker
 
       if (infowindow.marker) {
-        const ind = markers.findIndex(m => m.title === infowindow.marker.title)
+      //const ind = markers.findIndex(m => m.title === infowindow.marker.title)
       //markers[ind].setIcon(defaultIcon)  
       }
       // change marker icon color of clicked marker
@@ -138,7 +138,7 @@ export default class MapContainer extends Component {
   }
 
   onclickLocation = () => {
-    const {markers} = this.state
+    //const {markers} = this.state
     const that = this
     const {infowindow} = this.state
 
@@ -157,11 +157,10 @@ export default class MapContainer extends Component {
       //that.populateInfoWindow(markers[markerInd], infowindow[markerInd])
               // TO DO: fix onclick displaying info window
               /// marker currently undefined cannot match marker index
-    }
+    
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if(e.target && e.target.nodeName === "LI") {
         displayInfowindow(e) 
-        console.log(infowindow)
       } 
     })
 
