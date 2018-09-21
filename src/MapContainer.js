@@ -47,8 +47,15 @@ export default class MapContainer extends Component {
 
       this.map = new maps.Map(node, mapConfig)
       this.addMarkers()
+    } else {
+      this.setState({
+        mapError: "error while loading the app"})
     }
-
+  }
+  handleValueChange = (e) => {
+    this.setState({
+      query: e.target.value
+    })
   }
 
   onclickLocation = () => {
@@ -63,7 +70,7 @@ export default class MapContainer extends Component {
         
         // TO DO: fix onclick displaying info window
         /// marker currently undefined cannot match marker index
-        //that.populateInfoWindow(markers[markerInd], infowindow)
+        that.populateInfoWindow(markers[markerInd], infowindow)
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if (e.target && e.target.nodeName === "LI") {
@@ -103,7 +110,6 @@ export default class MapContainer extends Component {
     //console.log("Marker: ", marker);
     //const defaultIcon = marker.getIcon()
     const {markers,highlightedIcon} = this.state
-    // Check to make sure the infowindow is not already opened on this marker.
         const {google} = this.props
 
     const service = new google.maps.places.PlacesService(this.map)
@@ -112,8 +118,7 @@ export default class MapContainer extends Component {
     
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
-      
-      //markers[ind].setIcon(defaultIcon)
+
       if (infowindow.marker) {
         const ind = markers.findIndex(m => m.title === infowindow.marker.title)
       //markers[ind].setIcon(defaultIcon)  
@@ -138,6 +143,7 @@ export default class MapContainer extends Component {
         infowindow.open(this.map, marker);
         }
       });
+
            } else {
              window.alert('No results found');
            }
@@ -161,21 +167,21 @@ export default class MapContainer extends Component {
 
     const displayInfowindow = (e) => {
       const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-      //
-      //that.populateInfoWindow(markers[markerInd], infowindow)console.log(markerInd)
+      //that.populateInfoWindow(markers[markerInd], infowindow[markerInd])
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
-      console.log(e)
       if(e.target && e.target.nodeName === "LI") {
         displayInfowindow(e)
-      }
+      } 
     })
+
     document.querySelector('.locations-list').addEventListener('keydown', function (e) {
       if(e.keyCode === 13 ){
         displayInfowindow(e)
       }
     })
   }
+
   makeMarkerIcon = (markerColor) => {
     const {google} = this.props
     let markerImage = new google.maps.MarkerImage(
@@ -209,6 +215,7 @@ export default class MapContainer extends Component {
         }
       })
     }
+    
     return (
       <div>
         {this.state.error ? (
