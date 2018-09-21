@@ -64,7 +64,7 @@ export default class MapContainer extends Component {
     let {infowindow} = this.state
     const bounds = new google.maps.LatLngBounds();
 
-    this.state.locations.forEach((location, ind) => {
+    this.state.locations.forEach((location) => {
       const marker = new google.maps.Marker({
         position: {lat: location.location.lat, lng: location.location.lng},
         map: this.map,
@@ -155,8 +155,6 @@ export default class MapContainer extends Component {
     }
       //const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
       //that.populateInfoWindow(markers[markerInd], infowindow[markerInd])
-              // TO DO: fix onclick displaying info window
-              /// marker currently undefined cannot match marker index
     
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if(e.target && e.target.nodeName === "LI") {

@@ -4,6 +4,20 @@ import './App.css';
 import MapContainer from './MapContainer'
 
 class App extends Component {
+  componentDidMount() {
+    document.querySelector('.menu').addEventListener('click', this.toggleSideBar)
+    document.querySelector('.menu').addEventListener('keydown', (e) => {
+      if (e.keyCode === 13) {
+        document.querySelector('.menu').focus()
+        this.toggleSideBar()
+      }
+    })
+  }
+
+  toggleSideBar = () => {
+    document.querySelector('.sidebar').classList.toggle('text-input-hidden')
+  }
+
   render() {
     return (
       <div>
