@@ -143,23 +143,34 @@ export default class MapContainer extends Component {
     const {infowindow} = this.state
 
     const displayInfowindow = (e) => {
+      let markers = this.state.markers;
+      console.log("state: ", this.state);
+      console.log("markers: ", markers);
+      console.log("other onclickLocation :",
+       
+    e.target.innerText.toLowerCase());
       const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
+      console.log("marker index: ", markerInd);
+      that.populateInfoWindow(markers[markerInd], infowindow, that.state[markerInd])
+    }
+      //const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
       //that.populateInfoWindow(markers[markerInd], infowindow[markerInd])
               // TO DO: fix onclick displaying info window
               /// marker currently undefined cannot match marker index
     }
     document.querySelector('.locations-list').addEventListener('click', function (e) {
       if(e.target && e.target.nodeName === "LI") {
-        displayInfowindow(e)
+        displayInfowindow(e) 
+        console.log(infowindow)
       } 
     })
 
-    document.querySelector('.locations-list').addEventListener('keydown', function (e) {
-      if(e.keyCode === 13 ){
-        displayInfowindow(e)
-      }
-    })
-  }
+    document.querySelector('.locations-list').addEventListener('keydown', function(e) {
+    if (e.keyCode === 13) {
+      displayInfowindow(e)
+    }
+  })
+}
 
   makeMarkerIcon = (markerColor) => {
     const {google} = this.props
