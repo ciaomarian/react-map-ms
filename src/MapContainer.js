@@ -23,10 +23,29 @@ export default class MapContainer extends Component {
     error: null,
     mapError: null
   }
+  
 
   componentDidMount() {
-    this.loadMap()
-    this.onclickLocation()
+    //this.loadMap()
+    //this.onclickLocation()
+    const url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2eaf3c518771b88959571c18b7606534&tags=MacKerricher+State+Park&per_page=10&format=json&nojsoncallback=1&auth_token=72157695807560460-bfd42dd3a8bc85fa&api_sig=c27be314ea83622b073adaabbbc7f566
+    '
+      .then(data => {
+        if (data.ok) {
+          return data.json()
+        } else {
+          throw new Error(data.statusText)
+        }
+      })
+      .then(data => {
+        this.setState({ users: data.results })
+        this.loadMap()
+        this.onclickLocation()
+      })
+      .catch(err => {
+        this.setState({ error: err.toString() })
+      })   
+
     // Create a "highlighted location" marker color for when the user
     // clicks on the marker.
     this.setState({highlightedIcon: this.makeMarkerIcon('ffc169')})
@@ -55,7 +74,6 @@ export default class MapContainer extends Component {
   }
 
 
-
   handleValueChange = (e) => {
     this.setState({query: e.target.value})
   }
@@ -74,8 +92,15 @@ export default class MapContainer extends Component {
 
 
       marker.addListener('click', () => {
-        this.populateInfoWindow(marker, infowindow)
-      })
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        this.populateInfoWindow(marker, infowindow);
+        setTimeout(
+          marker.setAnimation(window.google.maps.Animation.null),
+          6000
+          );
+      });
+      marker.setAnimation(window.google.maps.Animation.DROP);
+
       this.setState((state) => ({
         markers: [...state.markers, marker]
       }))
@@ -96,14 +121,11 @@ export default class MapContainer extends Component {
     
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
+     // if (infowindow.marker) {
+     //   const ind = markers.findIndex(m => m.title === infowindow.marker.title)
+     //   markers[ind].setIcon(defaultIcon)
+     // }
 
-      if (infowindow.marker) {
-      //const ind = markers.findIndex(m => m.title === infowindow.marker.title)
-      //markers[ind].setIcon(defaultIcon)  
-      }
-      // change marker icon color of clicked marker
-
-     //markers[ind].setIcon(defaultIcon)
       marker.setIcon(highlightedIcon)
       infowindow.marker = marker;
 
