@@ -59,8 +59,8 @@ export default class MapContainer extends Component {
         location: {
           lat: 39.348970,
           lng: -123.826145,
-          search: "Point_Cabrillo_Light"
-        }
+        },
+        search: "Point_Cabrillo_Light"
       },
       {
         name: "Russian Gulch State Marine Conservation",
