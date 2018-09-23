@@ -73,7 +73,8 @@ export default class MapContainer extends Component {
         name: "Big River Beach",
         location: {
           lat: 39.302637,
-          lng: -123.791042
+          lng: -123.791042,
+          search: "Big River"
         }
       }
     ],
