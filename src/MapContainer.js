@@ -11,48 +11,48 @@ export default class MapContainer extends Component {
         location: {
           lat: 39.488802,
           lng: -123.784986,
-          search: "MacKerricher_State_Park"
-        }
+        },
+        search: "MacKerricher_State_Park"
       },
       {
         name: "Laguna Point",
         location: {
           lat: 39.489604,
           lng: -123.804493,
-          search: "MacKerricher_State_Park, Laguna_Point"
-        }
+        },
+        search: "MacKerricher_State_Park, Laguna_Point"
       },
       {
         name: "Ten Mile River",
         location: {
           lat: 39.546877,
           lng: -123.757269,
-          search: "Ten_Mile_River_(California)"
-        }
+        },
+        search: "Ten_Mile_River_(California)"
       },
       {
         name: "Noyo Headlands State Park",
         location: {
           lat: 39.432217,
           lng: -123.812925,
-          search: "Noyo_Headlands_State_Park"
-        }
+        },
+        search: "Noyo_Headlands_State_Park"
       },
       {
         name: "Mendocino Coast Botanical Gardens",
         location: {
           lat: 39.409633,
           lng: -123.809829,
-          search: "Mendocino_Coast_Botanical_Gardens"
-        }
+        },
+        search: "Mendocino_Coast_Botanical_Gardens"
       },
       {
         name: "Jug Handle Beach Natural Park",
         location: {
           lat: 39.377322,
           lng: -123.817640,
-          search: "Jug_Handle_Beach_Natural_Park"
-        }
+        },
+        search: "Jug_Handle_Beach_Natural_Park"
       },
       {
         name: "Point Cabrillo Lighthouse",
@@ -67,24 +67,24 @@ export default class MapContainer extends Component {
         location: {
           lat: 39.330235,
           lng: -123.805760,
-          search: "Russian_Gulch_State_Marine_Conservation"
-        }
+        },
+        search: "Russian_Gulch_State_Marine_Conservation"
       },
       {
         name: "Point Mendocino Trail",
         location: {
           lat: 39.305060,
           lng: -123.809969,
-          search: "Point_Mendocino_Trail"
-        }
+        },
+        search: "Point_Mendocino_Trail"
       },
       {
         name: "Big River Beach",
         location: {
           lat: 39.302637,
           lng: -123.791042,
-          search: "Big River"
-        }
+        },
+        search: "Big River"
       }
     ],
     query: '',
@@ -199,22 +199,24 @@ export default class MapContainer extends Component {
       //markers[ind].setIcon(defaultIcon)
       marker.setIcon(highlightedIcon)
       infowindow.marker = marker;
+       console.log(marker)
+  //    const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/{marker.title}';
+  //    fetch(url)
+  //    .then(data => {
 
-      const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/{marker.title}';
-      fetch(url)
-      .then(data => {
-        if(data.ok) {
-          return data.json()
-        } else {
-          throw new Error(data.statusText)
-        }
-      })
-      .then(data => {
-        infowindow.content(data.title)
-      })
-      .catch(err => {
-        this.setState({error: err.toString()})
-      })
+  //     if(data.ok) {
+  //        return data.json()
+  //      } else {
+  //        throw new Error(data.statusText)
+  //      }
+  //   })
+
+  //   .then(data => {
+  //      infowindow.content(data.title)
+  //    })
+  //    .catch(err => {
+  //      this.setState({error: err.toString()})
+  //    })
 
       geocoder.geocode({
         'location': marker.position}, function (results, status) {
