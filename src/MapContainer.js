@@ -28,7 +28,8 @@ export default class MapContainer extends Component {
   componentDidMount() {
     //this.loadMap()
     //this.onclickLocation()
-    const url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2eaf3c518771b88959571c18b7606534&tags=MacKerricher+State+Park&is_getty=&per_page=10&format=json&nojsoncallback=1&auth_token=72157695807560460-bfd42dd3a8bc85fa&api_sig=9b88b6d230fa47766aed5acf68b5f831](https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2eaf3c518771b88959571c18b7606534&tags=MacKerricher+State+Park&is_getty=&per_page=10&format=json&nojsoncallback=1&auth_token=72157695807560460-bfd42dd3a8bc85fa&api_sig=9b88b6d230fa47766aed5acf68b5f831)'
+    const url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2eaf3c518771b88959571c18b7606534&tags=MacKerricher+State+Park&per_page=10&format=json&nojsoncallback=1&auth_token=72157695807560460-bfd42dd3a8bc85fa&api_sig=c27be314ea83622b073adaabbbc7f566
+    '
       .then(data => {
         if (data.ok) {
           return data.json()
