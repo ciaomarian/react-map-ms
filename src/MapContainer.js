@@ -96,8 +96,8 @@ export default class MapContainer extends Component {
   }
 
   componentDidMount() {
-   this.loadMap()
-   // this.onclickLocation()
+    this.loadMap()
+    this.onclickLocation()
     // Create a "highlighted location" marker color for when the user
     // clicks on the marker.
     this.setState({
