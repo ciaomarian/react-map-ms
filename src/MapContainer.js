@@ -157,7 +157,8 @@ export default class MapContainer extends Component {
           lng: location.location.lng
         },
         map: this.map,
-        title: location.name
+        title: location.name,
+        search: location.search
       });
 
 
