@@ -10,63 +10,72 @@ export default class MapContainer extends Component {
         name: "MacKerricher State Park",
         location: {
           lat: 39.488802,
-          lng: -123.784986
+          lng: -123.784986,
+          search: "MacKerricher_State_Park"
         }
       },
       {
         name: "Laguna Point",
         location: {
           lat: 39.489604,
-          lng: -123.804493
+          lng: -123.804493,
+          search: "MacKerricher_State_Park, Laguna_Point"
         }
       },
       {
-        name: "Ten Mile Estuary",
+        name: "Ten Mile River",
         location: {
           lat: 39.546877,
-          lng: -123.757269
+          lng: -123.757269,
+          search: "Ten_Mile_River_(California)"
         }
       },
       {
         name: "Noyo Headlands State Park",
         location: {
           lat: 39.432217,
-          lng: -123.812925
+          lng: -123.812925,
+          search: "Noyo_Headlands_State_Park"
         }
       },
       {
         name: "Mendocino Coast Botanical Gardens",
         location: {
           lat: 39.409633,
-          lng: -123.809829
+          lng: -123.809829,
+          search: "Mendocino_Coast_Botanical_Gardens"
         }
       },
       {
         name: "Jug Handle Beach Natural Park",
         location: {
           lat: 39.377322,
-          lng: -123.817640
+          lng: -123.817640,
+          search: "Jug_Handle_Beach_Natural_Park"
         }
       },
       {
         name: "Point Cabrillo Lighthouse",
         location: {
           lat: 39.348970,
-          lng: -123.826145
+          lng: -123.826145,
+          search: "Point_Cabrillo_Light"
         }
       },
       {
         name: "Russian Gulch State Marine Conservation",
         location: {
           lat: 39.330235,
-          lng: -123.805760
+          lng: -123.805760,
+          search: "Russian_Gulch_State_Marine_Conservation"
         }
       },
       {
         name: "Point Mendocino Trail",
         location: {
           lat: 39.305060,
-          lng: -123.809969
+          lng: -123.809969,
+          search: "Point_Mendocino_Trail"
         }
       },
       {
@@ -87,6 +96,7 @@ export default class MapContainer extends Component {
   }
 
   componentDidMount() {
+    https: //en.wikipedia.org/api/rest_v1/page/summary/
     this.loadMap()
     this.onclickLocation()
     // Create a "highlighted location" marker color for when the user
