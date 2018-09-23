@@ -189,19 +189,34 @@ export default class MapContainer extends Component {
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
 
-      if (infowindow.marker) {
+     // if (infowindow.marker) {
         //const ind = markers.findIndex(m => m.title === infowindow.marker.title)
         //markers[ind].setIcon(defaultIcon)  
-      }
+     // }
       // change marker icon color of clicked marker
 
       //markers[ind].setIcon(defaultIcon)
       marker.setIcon(highlightedIcon)
       infowindow.marker = marker;
 
+      const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/{marker.title}';
+      fetch(url)
+      .then(data => {
+        if(data.ok) {
+          return data.json()
+        } else {
+          throw new Error(data.statusText)
+        }
+      })
+      .then(data => {
+        infowindow.content(data.title)
+      })
+      .catch(err => {
+        this.setState({error: err.toString()})
+      })
+
       geocoder.geocode({
-        'location': marker.position
-      }, function (results, status) {
+        'location': marker.position}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
             service.getDetails({
