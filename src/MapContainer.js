@@ -20,7 +20,7 @@ export default class MapContainer extends Component {
           lat: 39.489604,
           lng: -123.804493,
         },
-        search: "MacKerricher_State_Park, Laguna_Point"
+        search: "MacKerricher_State_Park"
       },
       {
         name: "Ten Mile River",
@@ -36,7 +36,7 @@ export default class MapContainer extends Component {
           lat: 39.432217,
           lng: -123.812925,
         },
-        search: "Noyo_Headlands_State_Park"
+        search: "Noyo_River"
       },
       {
         name: "Mendocino Coast Botanical Gardens",
@@ -47,12 +47,12 @@ export default class MapContainer extends Component {
         search: "Mendocino_Coast_Botanical_Gardens"
       },
       {
-        name: "Jug Handle Beach Natural Park",
+        name: "Jug Handle Beach Natural Reserve",
         location: {
           lat: 39.377322,
           lng: -123.817640,
         },
-        search: "Jug_Handle_Beach_Natural_Park"
+        search: "Jug_Handle_State_Natural_Reserve"
       },
       {
         name: "Point Cabrillo Lighthouse",
@@ -63,20 +63,20 @@ export default class MapContainer extends Component {
         search: "Point_Cabrillo_Light"
       },
       {
-        name: "Russian Gulch State Marine Conservation",
+        name: "Russian Gulch State Park",
         location: {
           lat: 39.330235,
           lng: -123.805760,
         },
-        search: "Russian_Gulch_State_Marine_Conservation"
+        search: "Russian_Gulch_State_Park"
       },
       {
-        name: "Point Mendocino Trail",
+        name: "Mendocino Headlands State Park",
         location: {
           lat: 39.305060,
           lng: -123.809969,
         },
-        search: "Point_Mendocino_Trail"
+        search: "Mendocino_Headlands_State_Park"
       },
       {
         name: "Big River Beach",
@@ -197,27 +197,30 @@ export default class MapContainer extends Component {
       // change marker icon color of clicked marker
 
       //markers[ind].setIcon(defaultIcon)
-      marker.setIcon(highlightedIcon)
+      
+      marker.setIcon(highlightedIcon);
       infowindow.marker = marker;
-       console.log(marker)
-  //    const url = 'https://en.wikipedia.org/api/rest_v1/page/summary/{marker.title}';
-  //    fetch(url)
-  //    .then(data => {
+      console.log(marker);
+      let url = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+      url += marker.search;
+      fetch(url)
+        .then(data => {
+          if(data.ok) {
+            return data.json();
+           } else {
+            throw new Error(data.statusText);
+         }
+      })
 
-  //     if(data.ok) {
-  //        return data.json()
-  //      } else {
-  //        throw new Error(data.statusText)
-  //      }
-  //   })
-
-  //   .then(data => {
-  //      infowindow.content(data.title)
-  //    })
-  //    .catch(err => {
-  //      this.setState({error: err.toString()})
-  //    })
-
+      .then(data => {
+        console.log(data);
+       //infowindow.content(data.title)
+      })
+        .catch(err => {
+          this.setState({error: err.toString()});
+        });
+        url = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+     
       geocoder.geocode({
         'location': marker.position}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
