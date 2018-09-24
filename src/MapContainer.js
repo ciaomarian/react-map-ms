@@ -12,9 +12,8 @@ export default class MapContainer extends Component {
         location: {
           lat: 39.488802,
           lng: -123.784986,
-          imageUrl: "https://en.wikipedia.org/wiki/MacKerricher_State_Park#/media/File:Nursing_Harbor_Seal_pup_(cropped).jpg",
         },
-        search: "MacKerricher_State_Park"
+          imageUrl: ""
       },
       {
         name: "Laguna Point",
@@ -22,7 +21,7 @@ export default class MapContainer extends Component {
           lat: 39.489604,
           lng: -123.804493,
         },
-        search: "MacKerricher_State_Park"
+        imageUrl: ""
       },
       {
         name: "Ten Mile River",
@@ -30,7 +29,7 @@ export default class MapContainer extends Component {
           lat: 39.546877,
           lng: -123.757269,
         },
-        search: "Ten_Mile_River_(California)"
+        imageUrl: ""
       },
       {
         name: "Noyo Headlands State Park",
@@ -38,7 +37,7 @@ export default class MapContainer extends Component {
           lat: 39.432217,
           lng: -123.812925,
         },
-        search: "Noyo_River"
+        imageUrl: ""
       },
       {
         name: "Mendocino Coast Botanical Gardens",
@@ -46,7 +45,7 @@ export default class MapContainer extends Component {
           lat: 39.409633,
           lng: -123.809829,
         },
-        search: "Mendocino_Coast_Botanical_Gardens"
+        imageUrl: ""
       },
       {
         name: "Jug Handle Beach Natural Reserve",
@@ -54,7 +53,7 @@ export default class MapContainer extends Component {
           lat: 39.377322,
           lng: -123.817640,
         },
-        search: "Jug_Handle_State_Natural_Reserve"
+        imageUrl: ""
       },
       {
         name: "Point Cabrillo Lighthouse",
@@ -62,7 +61,7 @@ export default class MapContainer extends Component {
           lat: 39.348970,
           lng: -123.826145,
         },
-        search: "Point_Cabrillo_Light"
+        imageUrl: ""
       },
       {
         name: "Russian Gulch State Park",
@@ -70,7 +69,7 @@ export default class MapContainer extends Component {
           lat: 39.330235,
           lng: -123.805760,
         },
-        search: "Russian_Gulch_State_Park"
+        imageUrl: ""
       },
       {
         name: "Mendocino Headlands State Park",
@@ -78,7 +77,7 @@ export default class MapContainer extends Component {
           lat: 39.305060,
           lng: -123.809969,
         },
-        search: "Mendocino_Headlands_State_Park"
+        imageUrl: ""
       },
       {
         name: "Big River Beach",
@@ -86,7 +85,7 @@ export default class MapContainer extends Component {
           lat: 39.302637,
           lng: -123.791042,
         },
-        search: "Big River"
+        imageUrl: ""
       }
     ],
     query: '',
@@ -152,7 +151,21 @@ export default class MapContainer extends Component {
     } = this.state
     const bounds = new google.maps.LatLngBounds();
 
-    this.state.locations.forEach((location) => {
+    const self = this;
+
+  fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7c9af64e539ab7e4b0917464a5792b04&user_id=160931025%40N03&tags=react-map-project&extras=url_o&per_page=10&format=json&nojsoncallback=1&auth_token=72157671620512037-7f2e5a49cbf5db79&api_sig=fafc324fa167ed9bea36fce186333fc5')
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (myJson) {
+      myJson.photos.photo.forEach((photo) => {
+        self.state.locations.forEach((location) => {
+          location.imageUrl = photo.url_o;
+        });
+      });
+    });
+  
+    self.state.locations.forEach((location) => {
       const marker = new google.maps.Marker({
         position: {
           lat: location.location.lat,
@@ -161,7 +174,7 @@ export default class MapContainer extends Component {
         map: this.map,
         title: location.name,
         search: location.search,
-        imageUrl: location.location.imageUrl
+        imageUrl: location.imageUrl
       });
 
 
@@ -201,10 +214,11 @@ export default class MapContainer extends Component {
 
       //markers[ind].setIcon(defaultIcon)
 
+
       marker.setIcon(highlightedIcon);
       infowindow.marker = marker;
       console.log(marker);
-      let url = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+      let url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7c9af64e539ab7e4b0917464a5792b04&user_id=160931025%40N03&tags=react-map-project&extras=url_o&per_page=10&format=json&nojsoncallback=1&auth_token=72157671620512037-7f2e5a49cbf5db79&api_sig=fafc324fa167ed9bea36fce186333fc5';
       url += marker.search;
       fetch(url)
         .then(data => {
@@ -216,7 +230,6 @@ export default class MapContainer extends Component {
         })
 
         .then(data => {
-          console.log(data);
           //infowindow.content(data.title)
         })
         .catch(err => {
@@ -224,7 +237,7 @@ export default class MapContainer extends Component {
             error: err.toString()
           });
         });
-      url = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+//
 
       geocoder.geocode({
         'location': marker.position
@@ -240,10 +253,9 @@ export default class MapContainer extends Component {
         <div>Latitude: ${marker.getPosition().lat()}</div>
         <div>Longitude: ${marker.getPosition().lng()}</div>
         <div>${place.name}, ${place.formatted_address}</div>
-        <img src = "${marker.imageUrl}"
-        alt = "" > `);
+        <img src = "${marker.imageUrl}" alt = "" > `);
                 infowindow.open(this.map, marker);
-                 console.log(marker);
+                 console.log('marker image' + marker.imageUrl);
               }
             });
 
