@@ -160,7 +160,8 @@ export default class MapContainer extends Component {
         },
         map: this.map,
         title: location.name,
-        search: location.search
+        search: location.search,
+        imageUrl: location.location.imageUrl
       });
 
 
@@ -234,11 +235,15 @@ export default class MapContainer extends Component {
               placeId: results[1].place_id
             }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
+                
                 infowindow.setContent(`<h3>${marker.title}</h3>
         <div>Latitude: ${marker.getPosition().lat()}</div>
         <div>Longitude: ${marker.getPosition().lng()}</div>
-        <div>${place.name}, ${place.formatted_address}</div>`);
+        <div>${place.name}, ${place.formatted_address}</div>
+        <img src = "${marker.imageUrl}"
+        alt = "" > `);
                 infowindow.open(this.map, marker);
+                 console.log(marker);
               }
             });
 
