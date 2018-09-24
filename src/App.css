@@ -1,4 +1,5 @@
 .App {
+  display: flex;
   text-align: center;
 }
 
@@ -52,6 +53,7 @@ h2 {
 }
 
 .map {
+  flex-grow: 1;
   margin: 0;
   width: 80%;
   height: 100vh;
@@ -97,6 +99,7 @@ h2 {
   line-height: 1.5rem;
   padding: 10px;
 }
+
 
 .menu {
   display: none;

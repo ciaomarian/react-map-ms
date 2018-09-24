@@ -2,6 +2,7 @@ import React, {
   Component
 } from 'react'
 import ReactDOM from 'react-dom'
+import Gallery from 'react-grid-gallery';
 
 export default class MapContainer extends Component {
 
@@ -11,6 +12,7 @@ export default class MapContainer extends Component {
         location: {
           lat: 39.488802,
           lng: -123.784986,
+          imageUrl: "https://en.wikipedia.org/wiki/MacKerricher_State_Park#/media/File:Nursing_Harbor_Seal_pup_(cropped).jpg",
         },
         search: "MacKerricher_State_Park"
       },
@@ -190,14 +192,14 @@ export default class MapContainer extends Component {
     if (infowindow.marker !== marker) {
       // reset the color of previous marker
 
-     // if (infowindow.marker) {
-        //const ind = markers.findIndex(m => m.title === infowindow.marker.title)
-        //markers[ind].setIcon(defaultIcon)  
-     // }
+      // if (infowindow.marker) {
+      //const ind = markers.findIndex(m => m.title === infowindow.marker.title)
+      //markers[ind].setIcon(defaultIcon)  
+      // }
       // change marker icon color of clicked marker
 
       //markers[ind].setIcon(defaultIcon)
-      
+
       marker.setIcon(highlightedIcon);
       infowindow.marker = marker;
       console.log(marker);
@@ -205,24 +207,27 @@ export default class MapContainer extends Component {
       url += marker.search;
       fetch(url)
         .then(data => {
-          if(data.ok) {
+          if (data.ok) {
             return data.json();
-           } else {
+          } else {
             throw new Error(data.statusText);
-         }
-      })
+          }
+        })
 
-      .then(data => {
-        console.log(data);
-       //infowindow.content(data.title)
-      })
+        .then(data => {
+          console.log(data);
+          //infowindow.content(data.title)
+        })
         .catch(err => {
-          this.setState({error: err.toString()});
+          this.setState({
+            error: err.toString()
+          });
         });
-        url = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
-     
+      url = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+
       geocoder.geocode({
-        'location': marker.position}, function (results, status) {
+        'location': marker.position
+      }, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
             service.getDetails({
@@ -266,7 +271,7 @@ export default class MapContainer extends Component {
       console.log("markers: ", markers);
       console.log("other onclickLocation :",
 
-        e.target.innerText.toLowerCase());
+      e.target.innerText.toLowerCase());
       const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
       console.log("marker index: ", markerInd);
       that.populateInfoWindow(markers[markerInd], infowindow, that.state[markerInd])
@@ -338,9 +343,8 @@ export default class MapContainer extends Component {
               try later <
               div className = "error-description" > {
                 this.state.error
-              } < /div> <
-              /div>):
-              ( < div className = "container" >
+              } < /div> < /
+              div > ) : ( < div className = "container" >
                 <
                 div className = "sidebar text-input text-input-hidden" >
                 <
@@ -366,8 +370,8 @@ export default class MapContainer extends Component {
                       } > {
                         m.title
                       } < /li>))
-                    } < /ul> <
-                    /div> <
+                    } < /ul> < /
+                    div > <
                     /div> <
                     div role = "application"
                     className = "map"
@@ -375,10 +379,10 @@ export default class MapContainer extends Component {
                     loading map...{
                       this.state.mapError && < div className = "error" > {
                         this.state.mapError
-                      } < /div>} <
-                      /div> <
-                      /div>)} <
-                      /div>
+                      } < /div>} < /
+                      div > <
+                      /div>)} < /
+                      div >
                     )
                   }
                 }
