@@ -32,11 +32,15 @@ Serve the project
 
 ```https://github.com/fullstackreact/google-maps-react``` for Google Map API
 
-## API
 
-The project uses [Google Map](https://developers.google.com/maps/documentation/)
+## APIs
+
+The project uses:
+ [Google Map](https://developers.google.com/maps/documentation/)
+ 
+ Flickr API for fetching photos from online database (https://www.flickr.com/services/api/)
 
 ## Credits
 
-A heartfelt thanks to Edoh for his wonderful project walkthrough. I followed him step by step to learn this process thoroughly. Also to Rodrik Bloomfield for his React webinars.
-Thank you to Udacity Mentors, especially Doug Brown on Slack for catching my errors!
+A heartfelt thanks to Edoh for his wonderful project walkthrough, and to Rodrik Bloomfield for his React webinars.
+Thank you to Udacity Project Mentors, especially Doug Brown, Ivan Bila and Mike Kroth on Slack.

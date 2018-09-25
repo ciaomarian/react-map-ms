@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { GoogleApiWrapper } from 'google-maps-react'
 import './App.css';
 import MapContainer from './MapContainer'
-import Gallery from 'react-grid-gallery';
+
 
 class App extends Component {
   componentDidMount() {
