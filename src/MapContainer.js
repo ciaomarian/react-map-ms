@@ -2,7 +2,7 @@ import React, {
     Component
 } from 'react'
 import ReactDOM from 'react-dom'
-import Gallery from 'react-grid-gallery';
+
 
 export default class MapContainer extends Component {
 
@@ -154,9 +154,8 @@ export default class MapContainer extends Component {
         const self = this;
 
         
-        //Yesterday: fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7c9af64e539ab7e4b0917464a5792b04&user_id=160931025%40N03&tags=react-map-project&extras=url_o&per_page=10&format=json&nojsoncallback=1&auth_token=72157671620512037-7f2e5a49cbf5db79&api_sig=fafc324fa167ed9bea36fce186333fc5')
+        fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7008e88bf93a14a71369ee8d742389c9&user_id=160931025%40N03&tags=01%2C02%2C03%2C04%2C05%2C06%2C07%2C08%2C09%2C10&per_page=10&format=json&nojsoncallback=1&auth_token=72157701477598684-1d543c22da69b424&api_sig=bb725ff28244d2528eb6f3d7784c699f')
 
-        fetch('https://api.flickr.com/services/rest/?method=flickr.tags.getListUser&api_key=8a74466d6bf0048cd3fe7d87b9e49dc0&user_id=160931025%40N03&format=json&nojsoncallback=1&auth_token=72157701456563604-78933df60d29877b&api_sig=de29f72c92a19ffd6f53b20b225db2f0')
             .then(function (response) {
                 return response.json();
             })
@@ -219,8 +218,7 @@ export default class MapContainer extends Component {
             marker.setIcon(highlightedIcon);
             infowindow.marker = marker;
             console.log(marker);
-            //let url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7c9af64e539ab7e4b0917464a5792b04&user_id=160931025%40N03&tags=react-map-project&extras=url_o&per_page=10&format=json&nojsoncallback=1&auth_token=72157671620512037-7f2e5a49cbf5db79&api_sig=fafc324fa167ed9bea36fce186333fc5';
-            let url = 'https://api.flickr.com/services/rest/?method=flickr.tags.getListUser&api_key=8a74466d6bf0048cd3fe7d87b9e49dc0&user_id=160931025%40N03&format=json&nojsoncallback=1&auth_token=72157701456563604-78933df60d29877b&api_sig=de29f72c92a19ffd6f53b20b225db2f0'
+            let url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7008e88bf93a14a71369ee8d742389c9&user_id=160931025%40N03&tags=01%2C02%2C03%2C04%2C05%2C06%2C07%2C08%2C09%2C10&per_page=10&format=json&nojsoncallback=1&auth_token=72157701477598684-1d543c22da69b424&api_sig=bb725ff28244d2528eb6f3d7784c699f';
             url += marker.search;
             fetch(url)
                 .then(data => {
