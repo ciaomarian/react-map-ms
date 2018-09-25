@@ -8,13 +8,13 @@ export default class MapContainer extends Component {
 
     state = {
         locations: [{
-            name: "MacKerricher State Park",
-            location: {
-                lat: 39.488802,
-                lng: -123.784986,
+                name: "MacKerricher State Park",
+                location: {
+                    lat: 39.488802,
+                    lng: -123.784986,
+                },
+                imageUrl: ""
             },
-            imageUrl: ""
-        },
             {
                 name: "Laguna Point",
                 location: {
@@ -127,6 +127,8 @@ export default class MapContainer extends Component {
             })
 
             this.map = new maps.Map(node, mapConfig)
+            // fetch flickr api data and assign photo urls to locations
+            // THEN add markers
             this.addMarkers()
         } else {
             this.setState({
@@ -142,7 +144,15 @@ export default class MapContainer extends Component {
         })
     }
 
-    addMarkers = () => {
+    getFlickrData() {
+
+    }
+
+    getFLickrData() {
+
+    }
+
+    addMarkers() {
         const {
             google
         } = this.props
@@ -153,39 +163,57 @@ export default class MapContainer extends Component {
 
         const self = this;
 
-        
-        fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7008e88bf93a14a71369ee8d742389c9&user_id=160931025%40N03&tags=01%2C02%2C03%2C04%2C05%2C06%2C07%2C08%2C09%2C10&per_page=10&format=json&nojsoncallback=1&auth_token=72157701477598684-1d543c22da69b424&api_sig=bb725ff28244d2528eb6f3d7784c699f')
 
+        fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7008e88bf93a14a71369ee8d742389c9&user_id=160931025%40N03&tags=01%2C02%2C03%2C04%2C05%2C06%2C07%2C08%2C09%2C10&per_page=10&format=json&nojsoncallback=1&auth_token=72157701477598684-1d543c22da69b424&api_sig=bb725ff28244d2528eb6f3d7784c699f')
             .then(function (response) {
                 return response.json();
             })
             .then(function (myJson) {
                 myJson.photos.photo.forEach((photo) => {
-                    self.state.imageList.push(photo.url_o);
+                    // console.log("photo")
+                    //console.log(photo.title)
+                    let farmId = photo.farm
+                    let serverId = photo.server
+                    let photoId = photo.id
+                    let secret = photo.secret
+                    let size = "_z.jpg" // small, 320px on longest side
+                    let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`
+                    //console.log(photoUrl)
+                    self.state.locations.forEach(location => {
+                        if (location.name == photo.title) {
+                            console.log('match', photoUrl)
+                            location.imageUrl = photoUrl
+                        }
+                    })
+                    //self.state.imageList.push(photo.url_o);
                 });
-            });
-        let image = self.state.imageList;
-        let counter = 0;
-        self.state.locations.forEach((location, index) => {
-            const marker = new google.maps.Marker({
-                position: {
-                    lat: location.location.lat,
-                    lng: location.location.lng,
-                },
-                map: this.map,
-                title: location.name,
-                search: location.search,
-                imageUrl: image
-            });
-            counter++;
-            marker.addListener('click', () => {
-                this.populateInfoWindow(marker, infowindow)
-            });
-            this.setState((state) => ({
-                markers: [...state.markers, marker]
-            }));
-            bounds.extend(marker.position)
-        });
+            }).then(
+                //let image = self.state.imageList;
+                //let counter = 0;
+                self.state.locations.forEach((location, index) => {
+                    console.log(location)
+                    const marker = new google.maps.Marker({
+                        position: {
+                            lat: location.location.lat,
+                            lng: location.location.lng,
+                        },
+                        map: this.map,
+                        title: location.name,
+                        search: location.search,
+                        imageUrl: location.imageUrl
+                    });
+                    //console.log(marker)
+                    //counter++;
+                    marker.addListener('click', () => {
+                        this.populateInfoWindow(marker, infowindow)
+                    });
+                    this.setState((state) => ({
+                        markers: [...state.markers, marker]
+                    }));
+                    bounds.extend(marker.position)
+                }))
+
+
         this.map.fitBounds(bounds)
     };
 
@@ -237,7 +265,7 @@ export default class MapContainer extends Component {
                         error: err.toString()
                     });
                 });
-//
+            //
 
             geocoder.geocode({
                 'location': marker.position
@@ -283,18 +311,18 @@ export default class MapContainer extends Component {
 
         const displayInfowindow = (e) => {
             let markers = this.state.markers;
-            console.log("state: ", this.state);
-            console.log("markers: ", markers);
-            console.log("other onclickLocation :",
+            // console.log("state: ", this.state);
+            // console.log("markers: ", markers);
+            // console.log("other onclickLocation :",
 
-                e.target.innerText.toLowerCase());
+            e.target.innerText.toLowerCase();
             const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
-            console.log("marker index: ", markerInd);
+            // console.log("marker index: ", markerInd);
+            // console.log(markerInd)
             that.populateInfoWindow(markers[markerInd], infowindow, that.state[markerInd])
         }
         //const markerInd = markers.findIndex(m => m.title.toLowerCase() === e.target.innerText.toLowerCase())
         //that.populateInfoWindow(markers[markerInd], infowindow[markerInd])
-
         document.querySelector('.locations-list').addEventListener('click', function (e) {
             if (e.target && e.target.nodeName === "LI") {
                 displayInfowindow(e)
@@ -323,96 +351,89 @@ export default class MapContainer extends Component {
     }
 
     render() {
-        const {
-            locations,
-            query,
-            markers,
-            infowindow
-        } = this.state
-        if (query) {
-            // get the index of elements that does not start with the query
-            // and use that index with markers array to setMap to null
-            locations.forEach((l, i) => {
-                if (l.name.toLowerCase().includes(query.toLowerCase())) {
-                    markers[i].setVisible(true)
-                } else {
-                    if (infowindow.marker === markers[i]) {
-                        // close the info window if marker removed
-                        infowindow.close()
+            const {
+                locations,
+                query,
+                markers,
+                infowindow
+            } = this.state
+            if (query) {
+                // get the index of elements that does not start with the query
+                // and use that index with markers array to setMap to null
+                locations.forEach((l, i) => {
+                    if (l.name.toLowerCase().includes(query.toLowerCase())) {
+                        markers[i].setVisible(true)
+                    } else {
+                        if (infowindow.marker === markers[i]) {
+                            // close the info window if marker removed
+                            infowindow.close()
+                        }
+                        markers[i].setVisible(false)
                     }
-                    markers[i].setVisible(false)
-                }
-            })
-        } else {
-            locations.forEach((l, i) => {
-                if (markers.length && markers[i]) {
-                    markers[i].setVisible(true)
-                }
-            })
-        }
-
-        return (<
-            div> {
-            this.state.error ? (<
-                div className="error">
-                An error has occurred; please
-                try later <
-                div className="error-description"> {
-                this.state.error
+                })
+            } else {
+                locations.forEach((l, i) => {
+                    if (markers.length && markers[i]) {
+                        markers[i].setVisible(true)
+                    }
+                })
             }
-                <
-                /div>
-                <
-                /
-                div> ) : ( < div className="container">
-                <
-                    div className="sidebar text-input text-input-hidden">
-                    <
-                        input role="search"
-                            type='text'
-                            value={
-                                this.state.value
-                            }
-                            onChange={
-                                this.handleValueChange
-                            }
-                    />
-                    <
-                        div>
-                        <
-                            ul className="locations-list"> {
-                            markers.filter(m => m.getVisible()).map((m, i) =>
-                                (< li role="link"
-                                    key={
-                                        i
-                                    }
-                                    tabIndex={
-                                        i
-                                    }> {
-                                    m.title
+
+            return ( <
+                    div > {
+                        this.state.error ? ( <
+                            div className = "error" >
+                            An error has occurred; please
+                            try later <
+                            div className = "error-description" > {
+                                this.state.error
+                            } <
+                            /div> <
+                            /
+                            div > ) : ( < div className = "container" >
+                                <
+                                div className = "sidebar text-input text-input-hidden" >
+                                <
+                                input role = "search"
+                                type = 'text'
+                                value = {
+                                    this.state.value
                                 }
-                                    <
-                                    /li>))
-                                    } < /ul>
-                                    <
-                                    /
-                                    div>
-                                    <
-                                    /div>
-                                    <
-                                        div role="application"
-                                            className="map"
-                                            ref="map">
+                                onChange = {
+                                    this.handleValueChange
+                                }
+                                /> <
+                                div >
+                                <
+                                ul className = "locations-list" > {
+                                    markers.filter(m => m.getVisible()).map((m, i) =>
+                                        ( < li role = "link"
+                                            key = {
+                                                i
+                                            }
+                                            tabIndex = {
+                                                i
+                                            } > {
+                                                m.title
+                                            } <
+                                            /li>))
+                                        } < /ul> <
+                                        /
+                                        div >
+                                        <
+                                        /div> <
+                                        div role = "application"
+                                        className = "map"
+                                        ref = "map" >
                                         loading map...{
-                                        this.state.mapError && < div className="error"> {
-                                            this.state.mapError
-                                        }
-                                            <
+                                            this.state.mapError && < div className = "error" > {
+                                                this.state.mapError
+                                            } <
                                             /div>} < /
-                                            div>
+                                            div >
                                             <
                                             /div>)} < /
-                                            div>
-                                            )
-                                            }
-                                            }
+                                            div >
+                                        )
+                                    }
+                                }
