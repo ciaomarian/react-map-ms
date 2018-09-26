@@ -157,7 +157,7 @@ export default class MapContainer extends Component {
 
     getFlickrData() {
         return fetch(
-            'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=daf7833e7977bcf4ad7f05c51fadc34d&user_id=160931025%40N03&tags=01%2C+02%2C+03%2C+04%2C+05%2C+06%2C+07%2C+08%2C+09%2C+10&format=json&nojsoncallback=1&api_sig=e92d51bc67eda2c2de30db498697139f'
+            'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=53fa2a1ce4da5d100864f40c5010b38a&user_id=160931025%40N03&format=json&nojsoncallback=1&auth_token=72157701764963785-437377b84550a095&api_sig=574a5041dbf1990fafe5cdcf8de92a30'
         )
             .then(response => response.json())
             .then(function (response) {
