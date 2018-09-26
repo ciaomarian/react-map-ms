@@ -282,7 +282,6 @@ export default class MapContainer extends Component {
     };
 
     onclickLocation = () => {
-        //const {markers} = this.state
         const that = this;
         const { infowindow } = this.state;
 
@@ -317,6 +316,7 @@ export default class MapContainer extends Component {
                     displayInfowindow(e);
                 }
             });
+            
     };
 
     makeMarkerIcon = markerColor => {
