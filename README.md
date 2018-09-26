@@ -1,8 +1,8 @@
-# CA North Coast Nature Trails: Mendocino to Ten Mile River 
+# CA North Coast Nature Trails: Mendocino to Ten Mile River
 
-## Udacity React Neighborhood Map, Project 7 
+## Udacity React Neighborhood Map, Project 7
 
-### Project Description and Purpose:
+### Project Description and Purpose
 
 This is a one page React Map application which displays a list of California North Coast Nature Trails from Mendocino to Ten Mile River. Zooming in will display geological elevations for hikers and details on other places of interest.
 

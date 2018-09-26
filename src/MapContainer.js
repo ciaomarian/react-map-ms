@@ -179,7 +179,7 @@ export default class MapContainer extends Component {
                     let serverId = photo.server;
                     let photoId = photo.id;
                     let secret = photo.secret;
-                    let size = '_z.jpg'; // small, 320px on longest side
+                    let size = '_n.jpg'; // small, 320px on longest side
                     let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`;
                     //console.log(photoUrl)
                     photoUrls.push([photo.title, photoUrl]);
