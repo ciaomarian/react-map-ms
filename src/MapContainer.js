@@ -180,7 +180,7 @@ export default class MapContainer extends Component {
                     let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`
                     //console.log(photoUrl)
                     self.state.locations.forEach(location => {
-                        if (location.name == photo.title) {
+                        if (location.name === photo.title) {
                             console.log('match', photoUrl)
                             location.imageUrl = photoUrl
                         }
