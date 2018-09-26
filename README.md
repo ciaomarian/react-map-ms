@@ -33,11 +33,9 @@ Once Node is installed, navigate to the directory where you want to store the ap
 
 ## Dependencies
 
-[google-maps-react]
+[google-maps-react](https://github.com/fullstackreact/google-maps-react)
 
-`https://github.com/fullstackreact/google-maps-react` for Google Map API
-
-### Resources and Documentation:
+### Resources and Documentation
 
 The project uses:
 [Google Maps](https://developers.google.com/maps/documentation/)
