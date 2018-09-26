@@ -1,4 +1,4 @@
-#CA North Coast Nature Trails: Mendocino to Ten Mile River 
+# CA North Coast Nature Trails: Mendocino to Ten Mile River 
 
 ## Udacity React Neighborhood Map, Project 7 
 
@@ -33,20 +33,20 @@ Once Node is installed, navigate to the directory where you want to store the ap
 
 ## Dependencies
 
-- [google-maps-react]
+[google-maps-react]
 
 `https://github.com/fullstackreact/google-maps-react` for Google Map API
 
 ### Resources and Documentation:
 
 The project uses:
- [Google Map](https://developers.google.com/maps/documentation/)
+[Google Maps](https://developers.google.com/maps/documentation/)
 
-Flickr API for fetching photos from online database (https://www.flickr.com/services/api/)
+[Flickr API](https://www.flickr.com/services/api/)
 
-React API: `https://reactjs.org/docs/react-component.html`
+[React API] (https://reactjs.org/docs/react-component.html)
 
-MDN web docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[MDN web docs] (https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ### Credits
 
