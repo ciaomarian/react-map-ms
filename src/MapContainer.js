@@ -367,7 +367,7 @@ export default class MapContainer extends Component {
                     </div>
                 ) : (
                         <div className="container">
-                            <div className="sidebar text-input text-input-hidden">
+                            <aside className = "sidebar text-input text-input-hidden" >
                                 <input
                                     role="search"
                                     type="text"
@@ -385,7 +385,7 @@ export default class MapContainer extends Component {
                                         ))}{' '}
                                     </ul>
                                 </div>
-                            </div>
+                            </aside>
                             <div role="application" className="map" ref="map">
                                 loading map...
 							{this.state.mapError && (
