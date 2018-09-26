@@ -4,7 +4,7 @@
 
 ### Project Description and Purpose:
 
-This is a one page React Map application which displays a list of California North Coast Nature Trails from Mendocino to Ten Mile River. Zooming in will display geolocical elevations for hikers and details on other places of interest.
+This is a one page React Map application which displays a list of California North Coast Nature Trails from Mendocino to Ten Mile River. Zooming in will display geological elevations for hikers and details on other places of interest.
 
 A sidebar menu shows locations of interest on the map which link to map markers, and a search input field allows the user to filter locations.
 
@@ -37,7 +37,6 @@ Once Node is installed, navigate to the directory where you want to store the ap
 
 ### Resources and Documentation
 
-The project uses:
 [Google Maps](https://developers.google.com/maps/documentation/)
 
 [Flickr API](https://www.flickr.com/services/api/)
@@ -48,4 +47,4 @@ The project uses:
 
 ### Credits
 
-Thank you to Udacity Project Mentors, especially Doug Brown, Ivan Bila, Mike Kroth on Slack,Edoh for his "getting started" walkthrough and to Rodrik Bloomfield for his React webinar.
+Thank you to Udacity Project Mentors, especially Doug Brown, Ivan Bila and Mike Kroth on Slack. Also Edoh for his "getting started" walkthrough and to Rodrik Bloomfield for his React webinar.
