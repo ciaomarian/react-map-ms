@@ -17,11 +17,11 @@ The project was built for the Udacity Front End Nanodegree Program. The purpose 
 
 - clone the project from GitHub
 
-`git clone https://github.com/ciaomarian/react-map-ms.git`
+    `git clone https://github.com/ciaomarian/react-map-ms.git`
 
 - change the working directory
 
-`cd react-map-ms`
+    `cd react-map-ms`
 
 ### How to Launch the App Development mode
 
@@ -44,9 +44,9 @@ The project uses:
 
 [Flickr API](https://www.flickr.com/services/api/)
 
-[React API] (https://reactjs.org/docs/react-component.html)
+[React API](https://reactjs.org/docs/react-component.html)
 
-[MDN web docs] (https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ### Credits
 
