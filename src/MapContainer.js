@@ -171,18 +171,18 @@ export default class MapContainer extends Component {
             })
             .then(function (myJson) {
                 let photoUrls = [];
-                    myJson.forEach(photo => {
-                        //console.log("photo")
-                        //console.log(photo.title)
-                        let farmId = photo.farm;
-                        let serverId = photo.server;
-                        let photoId = photo.id;
-                        let secret = photo.secret;
-                        let size = '_n.jpg'; // small, 320px on longest side
-                        let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`;
-                        //console.log(photoUrl)
-                        photoUrls.push([photo.title, photoUrl]);
-                    });
+                myJson.forEach(photo => {
+                    //console.log("photo")
+                    //console.log(photo.title)
+                    let farmId = photo.farm;
+                    let serverId = photo.server;
+                    let photoId = photo.id;
+                    let secret = photo.secret;
+                    let size = '_n.jpg'; // small, 320px on longest side
+                    let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`;
+                    //console.log(photoUrl)
+                    photoUrls.push([photo.title, photoUrl]);
+                });
                 return photoUrls;
             });
     }
@@ -382,8 +382,8 @@ export default class MapContainer extends Component {
                     } <
                     div className = "error-description" > {
                         this.state.error
-                    } < /div> <
-                    /div>
+                    } < /div> < /
+                    div >
                 ) : ( <
                     div className = "container" >
                     <
@@ -420,8 +420,8 @@ export default class MapContainer extends Component {
                     } {
                         ' '
                     } <
-                    /ul> <
-                    /div> <
+                    /ul> < /
+                    div > <
                     /aside> <
                     div role = "application"
                     className = "map"
@@ -435,8 +435,8 @@ export default class MapContainer extends Component {
                     } {
                         ' '
                     } <
-                    /div> <
-                    /div>
+                    /div> < /
+                    div >
                 )
             } {
                 ' '
