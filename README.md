@@ -23,13 +23,23 @@ The project was built for the Udacity Front End Nanodegree Program. The purpose 
 
     `cd react-map-ms`
 
-### How to Launch the App Development mode
+### How to Launch the App Development Mode
 
 The project uses Node.js and the Create-React-App starter. If you do not have Node installed, you can download it here: Node.js
 
 Once Node is installed, navigate to the directory where you want to store the app and serve the project:
 
 `npm start` or `yarn start`
+
+### Production Mode
+
+The service worker is implemented only in the production build.
+
+To run the application in the production build:
+
+`npm run build`
+`serve -s build`
+`navigate to http://localhost:3000/`
 
 ## Dependencies
 
