@@ -6,6 +6,7 @@ import MapContainer from './MapContainer'
 
 class App extends Component {
   componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
     document.querySelector('.menu').addEventListener('click', this.toggleSideBar)
     document.querySelector('.menu').addEventListener('keydown', (e) => {
       if (e.keyCode === 13) {
@@ -14,6 +15,9 @@ class App extends Component {
       }
     })
   }
+gm_authFailure() {
+  window.alert("Google Maps error!")
+}
 
   toggleSideBar = () => {
     document.querySelector('.sidebar').classList.toggle('text-input-hidden')

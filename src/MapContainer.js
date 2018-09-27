@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import ReactDOM from 'react-dom';
 
 export default class MapContainer extends Component {
     state = {
-        locations: [
-            {
+        locations: [{
                 name: 'MacKerricher State Park',
                 location: {
                     lat: 39.488802,
                     lng: -123.784986
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Laguna Point',
@@ -18,7 +19,7 @@ export default class MapContainer extends Component {
                     lat: 39.489604,
                     lng: -123.804493
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Ten Mile River',
@@ -26,7 +27,7 @@ export default class MapContainer extends Component {
                     lat: 39.546877,
                     lng: -123.757269
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Noyo Headlands State Park',
@@ -34,7 +35,7 @@ export default class MapContainer extends Component {
                     lat: 39.432217,
                     lng: -123.812925
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Mendocino Coast Botanical Gardens',
@@ -42,7 +43,7 @@ export default class MapContainer extends Component {
                     lat: 39.409633,
                     lng: -123.809829
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png '
             },
             {
                 name: 'Jug Handle Beach Natural Reserve',
@@ -50,7 +51,7 @@ export default class MapContainer extends Component {
                     lat: 39.377322,
                     lng: -123.81764
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Point Cabrillo Lighthouse',
@@ -58,7 +59,7 @@ export default class MapContainer extends Component {
                     lat: 39.34897,
                     lng: -123.826145
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Russian Gulch State Park',
@@ -66,7 +67,7 @@ export default class MapContainer extends Component {
                     lat: 39.330235,
                     lng: -123.80576
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Mendocino Headlands State Park',
@@ -74,7 +75,7 @@ export default class MapContainer extends Component {
                     lat: 39.30506,
                     lng: -123.809969
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             },
             {
                 name: 'Big River Beach',
@@ -82,7 +83,7 @@ export default class MapContainer extends Component {
                     lat: 39.302637,
                     lng: -123.791042
                 },
-                imageUrl: ''
+                imageUrl: './noPhoto.png'
             }
         ],
         query: '',
@@ -90,12 +91,12 @@ export default class MapContainer extends Component {
         infowindow: new this.props.google.maps.InfoWindow(),
         highlightedIcon: null,
         error: null,
-        mapError: null,
+        mapError: null
     };
 
     componentDidMount() {
         this.getFlickrData().then(photoUrls => {
-           console.table(photoUrls);
+            console.table(photoUrls);
             let newState = this.state.locations;
             photoUrls.forEach(photoArray => {
                 let title = photoArray[0];
@@ -115,28 +116,27 @@ export default class MapContainer extends Component {
         // // clicks on the marker.
         this.setState({
             highlightedIcon: this.makeMarkerIcon('ffc169')
-        })
+        });
     }
 
     loadMap() {
         if (this.props && this.props.google) {
-            const { google } = this.props;
+            const {
+                google
+            } = this.props;
             const maps = google.maps;
 
             const mapRef = this.refs.map;
             const node = ReactDOM.findDOMNode(mapRef);
 
-            const mapConfig = Object.assign(
-                {},
-                {
-                    center: {
-                        lat: 45.188529,
-                        lng: 5.724523999999974
-                    },
-                    zoom: 12,
-                    mapTypeId: 'terrain'
-                }
-            );
+            const mapConfig = Object.assign({}, {
+                center: {
+                    lat: 45.188529,
+                    lng: 5.724523999999974
+                },
+                zoom: 12,
+                mapTypeId: 'terrain'
+            });
 
             this.map = new maps.Map(node, mapConfig);
             // fetch flickr api data and assign photo urls to locations
@@ -157,8 +157,8 @@ export default class MapContainer extends Component {
 
     getFlickrData() {
         return fetch(
-            'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=9eefcdf404fa1507c6f3fe0faf43ffae&user_id=160931025%40N03&tags=01%2C02%2C03%2C04%2C05%2C06%2C07%2C08%2C09%2C10&per_page=10&format=json&nojsoncallback=1&auth_token=72157701554247374-5a773208dc66aca0&api_sig=6d228414ad340cd55468a90d8bf6d0e8'
-        )
+                'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=9eefcdf404fa1507c6f3fe0faf43ffae&user_id=160931025%40N03&tags=01%2C02%2C03%2C04%2C05%2C06%2C07%2C08%2C09%2C10&per_page=10&format=json&nojsoncallback=1&auth_token=72157701554247374-5a773208dc66aca0&api_sig=6d228414ad340cd55468a90d8bf6d0e8x'
+            )
             .then(response => response.json())
             .then(function (response) {
                 //console.log(response)
@@ -170,27 +170,34 @@ export default class MapContainer extends Component {
                 }
             })
             .then(function (myJson) {
-                //console.log(myJson)
                 let photoUrls = [];
-                myJson.forEach(photo => {
-                    //console.log("photo")
-                    //console.log(photo.title)
-                    let farmId = photo.farm;
-                    let serverId = photo.server;
-                    let photoId = photo.id;
-                    let secret = photo.secret;
-                    let size = '_n.jpg'; // small, 320px on longest side
-                    let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`;
-                    //console.log(photoUrl)
-                    photoUrls.push([photo.title, photoUrl]);
-                });
+                if (Error) {
+                    console.log('error');
+                } else {
+                    myJson.forEach(photo => {
+                        //console.log("photo")
+                        //console.log(photo.title)
+                        let farmId = photo.farm;
+                        let serverId = photo.server;
+                        let photoId = photo.id;
+                        let secret = photo.secret;
+                        let size = '_n.jpg'; // small, 320px on longest side
+                        let photoUrl = `https://farm${farmId}.staticflickr.com/${serverId}/${photoId}_${secret}${size}`;
+                        //console.log(photoUrl)
+                        photoUrls.push([photo.title, photoUrl]);
+                    });
+                }
                 return photoUrls;
             });
     }
 
     addMarkers() {
-        const { google } = this.props;
-        let { infowindow } = this.state;
+        const {
+            google
+        } = this.props;
+        let {
+            infowindow
+        } = this.state;
         const bounds = new google.maps.LatLngBounds();
 
         this.state.locations.forEach((location, index) => {
@@ -220,8 +227,12 @@ export default class MapContainer extends Component {
 
     populateInfoWindow = (marker, infowindow) => {
         //const defaultIcon = marker.getIcon()
-        const { highlightedIcon } = this.state;
-        const { google } = this.props;
+        const {
+            highlightedIcon
+        } = this.state;
+        const {
+            google
+        } = this.props;
 
         const service = new google.maps.places.PlacesService(this.map);
         const geocoder = new google.maps.Geocoder();
@@ -242,24 +253,22 @@ export default class MapContainer extends Component {
             console.log(infowindow.marker);
             //let url = marker.imageUrl;
 
-            geocoder.geocode(
-                {
+            geocoder.geocode({
                     location: marker.position
                 },
                 function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
                         if (results[1]) {
-                            service.getDetails(
-                                {
+                            service.getDetails({
                                     placeId: results[1].place_id
                                 },
                                 (place, status) => {
                                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                                         infowindow.setContent(`<h3>${marker.title}</h3>
-        <div>Latitude: ${marker.getPosition().lat()}</div>
-        <div>Longitude: ${marker.getPosition().lng()}</div>
-        <div>${place.name}, ${place.formatted_address}</div>
-        < img src = "${marker.imageUrl} "alt = "${place.name}" > `);
+       <div>Latitude: ${marker.getPosition().lat()}</div>
+       <div>Longitude: ${marker.getPosition().lng()}</div>
+       <div>${place.name}, ${place.formatted_address}</div>
+       <img src="${marker.imageUrl}" alt ="${place.name}"> `);
                                         infowindow.open(this.map, marker);
                                     }
                                 }
@@ -283,7 +292,9 @@ export default class MapContainer extends Component {
 
     onclickLocation = () => {
         const that = this;
-        const { infowindow } = this.state;
+        const {
+            infowindow
+        } = this.state;
 
         const displayInfowindow = e => {
             let markers = this.state.markers;
@@ -316,11 +327,12 @@ export default class MapContainer extends Component {
                     displayInfowindow(e);
                 }
             });
-            
     };
 
     makeMarkerIcon = markerColor => {
-        const { google } = this.props;
+        const {
+            google
+        } = this.props;
         let markerImage = new google.maps.MarkerImage(
             'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' +
             markerColor +
@@ -334,7 +346,12 @@ export default class MapContainer extends Component {
     };
 
     render() {
-        const { locations, query, markers, infowindow } = this.state;
+        const {
+            locations,
+            query,
+            markers,
+            infowindow
+        } = this.state;
         if (query) {
             // get the index of elements that does not start with the query
             // and use that index with markers array to setMap to null
@@ -357,46 +374,78 @@ export default class MapContainer extends Component {
             });
         }
 
-        return (
-            <div>
-                {' '}
-                {this.state.error ? (
-                    <div className="error">
-                        An error has occurred; please try later{' '}
-                        <div className="error-description"> {this.state.error}</div>
-                    </div>
-                ) : (
-                        <div className="container">
-                            <aside className = "sidebar text-input text-input-hidden" >
-                                <input
-                                    role="search"
-                                    type="text"
-                                    value={this.state.value}
-                                    onChange={this.handleValueChange}
-                                />
-                                <div>
-                                    <ul className="locations-list">
-                                        {' '}
-                                        {markers.filter(m => m.getVisible()).map((m, i) => (
-                                            <li role="link" key={i} tabIndex={i}>
-                                                {' '}
-                                                {m.title}
-                                            </li>
-                                        ))}{' '}
-                                    </ul>
-                                </div>
-                            </aside>
-                            <div role="application" className="map" ref="map">
-                                loading map...
-							{this.state.mapError && (
-                                    <div className="error"> {this.state.mapError}</div>
-                                )}{' '}
-                            </div>
-                        </div>
-                    )}{' '}
-            </div>
+        return ( <
+            div > {
+                ' '
+            } {
+                this.state.error ? ( <
+                    div className = "error" >
+                    An error has occurred; please
+                    try later {
+                        ' '
+                    } <
+                    div className = "error-description" > {
+                        this.state.error
+                    } < /div> <
+                    /div>
+                ) : ( <
+                    div className = "container" >
+                    <
+                    aside className = "sidebar text-input text-input-hidden" >
+                    <
+                    input role = "search"
+                    type = "text"
+                    value = {
+                        this.state.value
+                    }
+                    onChange = {
+                        this.handleValueChange
+                    }
+                    /> <
+                    div >
+                    <
+                    ul className = "locations-list" > {
+                        ' '
+                    } {
+                        markers.filter(m => m.getVisible()).map((m, i) => ( <
+                            li role = "link"
+                            key = {
+                                i
+                            }
+                            tabIndex = {
+                                i
+                            } > {
+                                ' '
+                            } {
+                                m.title
+                            } <
+                            /li>
+                        ))
+                    } {
+                        ' '
+                    } <
+                    /ul> <
+                    /div> <
+                    /aside> <
+                    div role = "application"
+                    className = "map"
+                    ref = "map" >
+                    loading map...{
+                        this.state.mapError && ( <
+                            div className = "error" > {
+                                this.state.mapError
+                            } < /div>
+                        )
+                    } {
+                        ' '
+                    } <
+                    /div> <
+                    /div>
+                )
+            } {
+                ' '
+            } <
+            /div>
         );
     }
 }
-
-
