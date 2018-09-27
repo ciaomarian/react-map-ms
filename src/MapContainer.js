@@ -283,6 +283,16 @@ export default class MapContainer extends Component {
                 infowindow.marker = null;
                 //marker.setIcon(defaultIcon)
             });
+            // Animates on opening infowindow /
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                // stops animation after some time
+                setTimeout(function () {
+                    marker.setAnimation(null);
+                }, 750);
+            }
         }
     };
 
