@@ -11,7 +11,7 @@ export default class MapContainer extends Component {
                     lat: 39.488802,
                     lng: -123.784986
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Laguna Point',
@@ -19,7 +19,7 @@ export default class MapContainer extends Component {
                     lat: 39.489604,
                     lng: -123.804493
                 },
-                imageUrl: 'https://vignette.wikia.nocookie.net/simpsons/images/6/60/No_Image_Available.png/revision/latest?cb=20170219125728'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Ten Mile River',
@@ -27,7 +27,7 @@ export default class MapContainer extends Component {
                     lat: 39.546877,
                     lng: -123.757269
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Noyo Headlands State Park',
@@ -35,7 +35,7 @@ export default class MapContainer extends Component {
                     lat: 39.432217,
                     lng: -123.812925
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Mendocino Coast Botanical Gardens',
@@ -43,7 +43,7 @@ export default class MapContainer extends Component {
                     lat: 39.409633,
                     lng: -123.809829
                 },
-                imageUrl: './noPhoto.png '
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Jug Handle Beach Natural Reserve',
@@ -51,7 +51,7 @@ export default class MapContainer extends Component {
                     lat: 39.377322,
                     lng: -123.81764
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Point Cabrillo Lighthouse',
@@ -59,7 +59,7 @@ export default class MapContainer extends Component {
                     lat: 39.34897,
                     lng: -123.826145
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Russian Gulch State Park',
@@ -67,7 +67,7 @@ export default class MapContainer extends Component {
                     lat: 39.330235,
                     lng: -123.80576
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Mendocino Headlands State Park',
@@ -75,7 +75,7 @@ export default class MapContainer extends Component {
                     lat: 39.30506,
                     lng: -123.809969
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             },
             {
                 name: 'Big River Beach',
@@ -83,7 +83,7 @@ export default class MapContainer extends Component {
                     lat: 39.302637,
                     lng: -123.791042
                 },
-                imageUrl: './noPhoto.png'
+                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png'
             }
         ],
         query: '',
