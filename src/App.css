@@ -100,7 +100,9 @@ h2 {
   padding: 10px;
 }
 
-
+img {
+  margin-top: 10px;
+}
 .menu {
   display: none;
 }
