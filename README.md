@@ -55,6 +55,8 @@ To run the application in the production build:
 
 [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
+[hamburger-icon](http://www.w3.org/2000/svg)
+
 ### Credits
 
-Thank you to Udacity Project Mentors, especially Doug Brown, Ivan Bila and Mike Kroth on Slack. Also Edoh for his "getting started" walkthrough and to Rodrik Bloomfield for his React webinar.
+Thank you to Udacity Project Mentors, especially Mike Kroth, Doug Brown, ChaseOwens and Ivan Bila on Slack. Also to Edoh for his "getting started" walkthrough and to Rodrik Bloomfield for his React webinar.

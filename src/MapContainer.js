@@ -114,7 +114,7 @@ export default class MapContainer extends Component {
         this.onclickLocation()
         // // Create a "highlighted location" marker color for when the user
         // // clicks on the marker.
-        
+
         this.setState({
             highlightedIcon: this.makeMarkerIcon('ffc169')
         });
@@ -299,7 +299,9 @@ export default class MapContainer extends Component {
 
     onclickLocation = () => {
         const that = this;
-        const {infowindow} = this.state;
+        const {
+            infowindow
+        } = this.state;
 
         const displayInfowindow = e => {
             let markers = this.state.markers;
